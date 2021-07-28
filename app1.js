@@ -4,7 +4,7 @@ const path = require('path');
 const app = express();
 
 
-config
+//config
 const pool = mysql.createPool({
     host: "localhost",
     port: "3306", 
