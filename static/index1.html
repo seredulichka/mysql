@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a{
+            margin-left: 38%;
+            font-size: 25px;
+            color: black;
+            background-color: aquamarine;
+            padding: 10px;
+            border-radius: 25px;
+        }
+        a:hover{
+            color: black;
+            text-decoration: none;
+        }
+        table{
+            margin-left: 30%;
+            font-size: 18px;
+            line-height: 1;
+        }
+        th{
+            width: 200px;
+        }
+    </style> 
+</head>
+<body>
+    <table>
+        <caption>Database</caption>
+        <tr>
+         <th>id</th>
+         <th>Name</th>
+         <th>Birth</th>
+        </tr>
+        <tbody class="tbody" id="table"></tbody>
+       
+    </table>
+    <p>
+        <a href="/create">Добавить пользователя</a>
+    </p>
+    <script>
+        fetch('http://localhost:3003/allusers')
+            .then(res => {
+                if (!res.ok) {
+                    throw Error('could not fetch the data for that resourse');
+                }
+                return res.json();
+            })
+            .then(result => {
+                renderTable(result)
+            })
+            .catch(err => {
+                console.log(err)
+            });
+
+        function renderTable(result) {
+            for(let i=0; i<result.length; i++){
+                let string = document.createElement('tr');
+                string.innerHTML = `
+                    <td>${result[i].id}</td>
+                    <td>${result[i].name}</td>
+                    <td>${result[i].birth}</td>
+                `
+                document.getElementById("table").append(string);
+            }
+        };
+    </script>
+</body>
+</html>
